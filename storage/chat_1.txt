@@ -1,0 +1,6 @@
+Pilotron Chat Export - New Chat
+==================================================
+
+[You]: Can you see document? inside my documents section i upload
+
+[AI]: Sorry, I'm having trouble connecting to the AI. Please try again later.

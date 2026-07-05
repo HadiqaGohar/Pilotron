@@ -1,0 +1,56 @@
+
+# 📚 Step 1: Import Required Libraries
+import random
+import re
+
+# 🧠 Step 2: Define the Markov Chain Class
+class MarkovChain:
+    def __init__(self):
+        self.chain = {}
+
+    def add_words(self, words):
+        for i in range(len(words) - 1):
+            word = words[i]
+            next_word = words[i + 1]
+            if word not in self.chain:
+                self.chain[word] = []
+            self.chain[word].append(next_word)
+
+    def generate_text(self, length=50, start_word=None):
+        if not self.chain:
+            return ""
+
+        if start_word is None or start_word not in self.chain:
+            start_word = random.choice(list(self.chain.keys()))
+
+        result = [start_word]
+        for _ in range(length - 1):
+            current_word = result[-1]
+            next_words = self.chain.get(current_word, None)
+            if not next_words:
+                break
+            next_word = random.choice(next_words)
+            result.append(next_word)
+        return ' '.join(result)
+
+# 📝 Step 3: Upload a Text File (Lyrics, Quotes, etc.)
+from google.colab import files
+uploaded = files.upload()
+
+# Load and clean the uploaded file
+file_name = next(iter(uploaded))
+with open(file_name, 'r', encoding='utf-8') as f:
+    text = f.read()
+
+# Basic text preprocessing
+text = re.sub(r'\s+', ' ', text)  # Remove extra spaces/newlines
+words = text.strip().split()
+
+# 🧩 Step 4: Build the Markov Chain Model
+mc = MarkovChain()
+mc.add_words(words)
+
+# ✍️ Step 5: Generate Random Text
+generated_text = mc.generate_text(length=100)
+print("🎵 Generated Lyrics:\n")
+print(generated_text)
