@@ -34,3 +34,4 @@ docker-compose.override.yml
 
 # Storage
 storage/
+backend/.env
